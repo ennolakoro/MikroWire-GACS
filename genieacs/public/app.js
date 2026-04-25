@@ -1,52 +1,47 @@
 
-/** NOC Intelligence v16.0 - RESPONSIVE ELITE EDIT (UX Edition) **/
+/** NOC Intelligence v17.0 - NOC PRO INFINITY (Final Masterpiece) **/
 (function() {
   const css = `
     :root {
-      --mw-primary: #00ff88; --mw-secondary: #00d4ff; --mw-bg: #0a0c10;
-      --mw-card: #161b22; --mw-border: #30363d; --mw-text: #c9d1d9;
-      --mw-error: #ff4444; --mw-success: #00ff88;
+      --mw-bg: #0a0c10; --mw-card: #161b22; --mw-border: #30363d;
+      --mw-primary: #00ff88; --mw-secondary: #00d4ff; --mw-text: #c9d1d9;
+      --mw-error: #ff4444; --mw-btn-gray: #21262d;
     }
 
-    /* 1. SEAMLESS UI & NAVIGATION */
-    header, nav, .navbar, #nav, .navigation, .top-bar { background-color: var(--mw-bg) !important; border-bottom: 1px solid var(--mw-border) !important; background-image: none !important; }
-    nav a, .nav-link { color: #8b949e !important; font-weight: 600 !important; text-transform: uppercase !important; font-size: 11px !important; letter-spacing: 1px !important; }
-    nav a.active, .nav-link.active { color: var(--mw-primary) !important; text-shadow: 0 0 10px rgba(0, 255, 136, 0.5) !important; border-bottom: 2px solid var(--mw-primary) !important; }
-
-    /* 2. RESPONSIVE INPUTS (Edit Mode) */
-    input, select, textarea {
-      background-color: #0d1117 !important; border: 1px solid var(--mw-border) !important;
-      color: #fff !important; padding: 12px 15px !important; border-radius: 8px !important;
-      font-size: 14px !important; width: 100% !important; max-width: 400px !important;
-      transition: 0.3s !important; outline: none !important;
+    /* 1. TOTAL COLOR OVERRIDE - NO MORE CREAM/GRAY */
+    *, *:before, *:after { box-sizing: border-box; }
+    html, body, #page, .container-fluid, .device-page, .well, .panel, .panel-body, .list-group-item { 
+      background-color: var(--mw-bg) !important; color: var(--mw-text) !important; border-color: var(--mw-border) !important;
     }
-    input:focus { border-color: var(--mw-primary) !important; box-shadow: 0 0 10px rgba(0, 255, 136, 0.3) !important; }
     
-    /* Edit Pencilling Icons */
-    .edit-icon, [class*="edit"] { filter: hue-rotate(90deg) brightness(1.5); cursor: pointer; }
-
-    /* 3. QUANTUM ACTION BUTTONS (Commit/Discard) */
-    .commit-button, button.commit, button.save, .btn-primary {
-      background: linear-gradient(135deg, var(--mw-success), #00cc6a) !important;
-      color: #000 !important; font-weight: 900 !important; text-transform: uppercase !important;
-      padding: 15px 30px !important; border-radius: 12px !important; border: none !important;
-      box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4) !important; position: fixed !important;
-      bottom: 30px; right: 30px; z-index: 10000000 !important; cursor: pointer;
+    header, nav, .navbar, .top-bar { 
+      background: var(--mw-bg) !important; border-bottom: 1px solid var(--mw-border) !important; 
     }
 
-    button.discard, button.cancel, .btn-secondary {
-      background: #1c2128 !important; color: #8b949e !important;
-      padding: 15px 25px !important; border-radius: 12px !important; border: 1px solid var(--mw-border) !important;
-      position: fixed !important; bottom: 30px; right: 180px; z-index: 10000000 !important;
-    }
-    button:hover { transform: scale(1.05); }
-
-    /* 4. EXECUTIVE HUD (Responsive Grid) */
-    #mw-hud { position: sticky; top: 0; z-index: 1000000; background: #0a0c10; padding: 10px 20px; border-bottom: 1px solid var(--mw-border); box-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+    /* 2. ELITE TAB & HUD */
+    #mw-hud { position: sticky; top: 0; z-index: 1000000; background: var(--mw-bg); padding: 10px 20px; border-bottom: 2px solid var(--mw-border); box-shadow: 0 10px 40px #000; }
     .mw-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 10px; }
-    .mw-pill { background: var(--mw-card); padding: 8px 12px; border-radius: 8px; border-left: 4px solid var(--mw-primary); border-top: 1px solid var(--mw-border); }
-    .mw-pill-label { font-size: 8.5px; color: var(--mw-secondary); text-transform: uppercase; font-weight: 800; }
-    .mw-pill-value { font-size: 11.5px; font-family: monospace; color: #fff; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mw-pill { background: var(--mw-card); padding: 10px; border-radius: 8px; border-left: 4px solid var(--mw-primary); border-top: 1px solid var(--mw-border); }
+    .mw-pill-label { font-size: 9px; color: var(--mw-secondary); text-transform: uppercase; font-weight: 800; }
+    .mw-pill-value { font-size: 11.5px; font-family: monospace; color: #fff; margin-top: 3px; }
+    .mw-pill-value.offline { color: var(--mw-error) !important; text-shadow: 0 0 10px var(--mw-error); }
+
+    .mw-tabs { display: flex; gap: 4px; }
+    .mw-btn { background: var(--mw-btn-gray); border: 1px solid var(--mw-border); color: #8b949e; padding: 10px 24px; cursor: pointer; border-radius: 6px 6px 0 0; font-weight: 800; font-size: 11px; text-transform: uppercase; }
+    .mw-btn.active { background: var(--mw-primary) !important; color: #000 !important; border-bottom: 3px solid var(--mw-secondary) !important; }
+
+    /* 3. INPUT & BUTTON SYNC */
+    input, select, textarea { background: #0d1117 !important; border: 1px solid var(--mw-border) !important; color: #fff !important; padding: 10px !important; border-radius: 6px !important; }
+    .btn-default, .btn-secondary { background: var(--mw-btn-gray) !important; color: #fff !important; border: 1px solid var(--mw-border) !important; }
+    .btn-primary, .commit-button { background: linear-gradient(135deg, var(--mw-primary), var(--mw-secondary)) !important; color: #000 !important; font-weight: bold !important; border: none !important; }
+
+    /* 4. NOTIFICATION OVERLAY (Network Resilient) */
+    .alert, .fault, .error, .notification, .alert-danger { 
+      display: block !important; position: fixed !important; top: 100px !important; left: 50%; transform: translateX(-50%);
+      z-index: 9999999 !important; width: 90%; max-width: 700px; border: 2px solid var(--mw-error) !important;
+      background: rgba(20, 0, 0, 0.95) !important; color: #fff !important; padding: 20px !important; border-radius: 12px;
+      box-shadow: 0 0 50px rgba(255,0,0,0.5); backdrop-filter: blur(10px);
+    }
 
     /* 5. VISIBILITY ENGINE */
     body[data-mw-route="device"] .device-page > *:not(.alert):not(.fault):not(.error):not(#mw-hud):not(#faults),
@@ -55,68 +50,57 @@
     body[data-mw-tab="WIRELESS"] [data-mw-group="WIRELESS"],
     body[data-mw-tab="SYSTEM"] [data-mw-group="SYSTEM"] { display: block !important; }
 
-    table { width: 100% !important; border-radius: 12px; overflow: hidden; border: 1px solid var(--mw-border) !important; background: var(--mw-card); margin: 15px 0 !important; }
-    th { background: #0d1117 !important; color: var(--mw-primary) !important; padding: 12px !important; text-transform: uppercase; font-size: 10px; }
-    td { padding: 12px 16px !important; border-bottom: 1px solid var(--mw-border) !important; font-size: 13px; }
-
-    /* MOBILE ADJUSTMENTS */
-    @media (max-width: 768px) {
-      .mw-tabs { overflow-x: auto; padding-bottom: 5px; }
-      .mw-btn { padding: 8px 15px; font-size: 9px; }
-      button.discard { right: 160px; padding: 12px 20px; font-size: 12px; }
-      .commit-button { padding: 12px 20px; font-size: 12px; }
-    }
-    
     h3.Summon, .summon-button, .Parameter_Setting, .all-parameters, .device-faults, .mw-trash { display: none !important; }
   `;
 
-  if (!document.getElementById('mw-elite-edit-styles')) {
-    const s = document.createElement('style'); s.id='mw-elite-edit-styles'; s.innerHTML = css; document.head.appendChild(s);
+  if (!document.getElementById('mw-pro-infinity-styles')) {
+    const s = document.createElement('style'); s.id='mw-pro-infinity-styles'; s.innerHTML = css; document.head.appendChild(s);
   }
 
   let activeTab = 'NETWORK';
 
   function sync() {
-    const isDevice = location.hash.includes('/devices/');
-    document.body.setAttribute('data-mw-route', isDevice ? 'device' : 'other');
-    if (!isDevice) return;
-
+    if (!location.hash.includes('/devices/')) {
+        document.body.removeAttribute('data-mw-route');
+        const hud = document.getElementById('mw-hud'); if(hud) hud.remove();
+        return;
+    }
+    document.body.setAttribute('data-mw-route', 'device');
     const container = document.querySelector('.device-page') || document.querySelector('.container-fluid');
     if (!container) return;
 
+    // HUD Lifecycle
     let hud = document.getElementById('mw-hud');
     if (!hud) {
-      hud = document.createElement('div');
-      hud.id = 'mw-hud';
+      hud = document.createElement('div'); hud.id = 'mw-hud';
       hud.innerHTML = `<div class="mw-stat-grid" id="mw-stats"></div><div class="mw-tabs" id="mw-tab-bar"></div>`;
       document.body.prepend(hud);
       ['NETWORK', 'WIRELESS', 'SYSTEM'].forEach(t => {
-        const btn = document.createElement('button');
-        btn.className = 'mw-btn' + (t === activeTab ? ' active' : '');
-        btn.innerText = t;
+        const btn = document.createElement('button'); btn.className = 'mw-btn' + (t === activeTab ? ' active' : ''); btn.innerText = t;
         btn.onclick = () => { activeTab = t; document.querySelectorAll('.mw-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.body.setAttribute('data-mw-tab', t); };
         hud.querySelector('#mw-tab-bar').appendChild(btn);
       });
-      document.body.setAttribute('data-mw-tab', activeTab);
     }
+    document.body.setAttribute('data-mw-tab', activeTab);
 
+    // Sync Stats
     const stats = hud.querySelector('#mw-stats');
     let currentG = 'SYSTEM';
     const groupMap = { 'NETWORK': ['WAN', 'IP', 'PPP', 'VLAN'], 'WIRELESS': ['WIFI', 'SSID', 'WLAN', 'CONNECTED'] };
 
     Array.from(container.children).forEach(el => {
-      if (el.id === 'mw-hud' || el.classList.contains('alert') || el.classList.contains('fault')) return;
+      if (el.id === 'mw-hud' || el.classList.contains('alert') || el.classList.contains('fault')) {
+          if (el.innerText.includes('offline')) el.innerHTML += '<div style="font-size:10px;margin-top:5px;color:#ffbb33">Senior Tip: Modem behind NAT? Check Port 7547 or STUN settings.</div>';
+          return;
+      }
       const txt = (el.innerText || "").trim();
       if (txt.includes(':') && el.tagName !== 'TABLE' && el.childNodes.length < 6) {
         const p = txt.split(':');
-        const label = p[0].trim();
-        const id = 'stat-' + label.replace(/\s+/g, '-');
+        const id = 'stat-' + p[0].trim().replace(/\s+/g, '-');
         let item = document.getElementById(id);
         if (!item) { item = document.createElement('div'); item.id = id; item.className = 'mw-pill'; stats.appendChild(item); }
-        let val = p[1].trim();
-        const isOffline = el.querySelector('.offline') || (label === 'Last Inform' && el.innerText.includes('off') && !el.innerText.includes('on'));
-        let valClass = isOffline ? 'mw-pill-value offline' : 'mw-pill-value';
-        item.innerHTML = `<div class="mw-pill-label">${label}</div><div class="${valClass}">${val}</div>`;
+        const isOff = el.querySelector('.offline') || (p[0].includes('Inform') && txt.includes('off') && !txt.includes('on'));
+        item.innerHTML = `<div class="mw-pill-label">${p[0].trim()}</div><div class="mw-pill-value ${isOff?'offline':''}">${p[1].trim()}</div>`;
         el.classList.add('mw-trash');
         return;
       }
@@ -128,7 +112,7 @@
     });
   }
 
-  const observer = new MutationObserver(() => sync());
-  observer.observe(document.body, { childList: true, subtree: true });
+  const obs = new MutationObserver(() => sync());
+  obs.observe(document.body, { childList: true, subtree: true });
   setInterval(sync, 1000);
 })();
