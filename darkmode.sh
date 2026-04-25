@@ -156,19 +156,27 @@ EOF
     sudo systemctl enable --now genieacs-{cwmp,nbi,fs,ui}
 fi
 
-# --- NOC INTELLIGENCE UI INJECTION ---
-type_out "${CYAN}>>> Menyinkronkan MikroWire NOC UI v3.5 dari Repository..."
+# --- NOC INTELLIGENCE UI INJECTION (v4.5 SAFE PATCHER) ---
+type_out "${CYAN}>>> Melakukan Safe-Patching MikroWire NOC UI v4.5..."
 GENIE_PATH=$(npm list -g genieacs --parseable 2>/dev/null | head -n 1)
 if [ -z "$GENIE_PATH" ]; then GENIE_PATH="/usr/lib/node_modules/genieacs"; fi
-SYSTEM_APP_JS="$GENIE_PATH/public/app.js"
+SYSTEM_PUBLIC="$GENIE_PATH/public"
 REPO_APP_JS="./genieacs/public/app.js"
 
 if [ -f "$REPO_APP_JS" ]; then
-    sudo cp "$REPO_APP_JS" "$SYSTEM_APP_JS"
+    for f in "$SYSTEM_PUBLIC"/app*.js; do
+        if [ -f "$f" ]; then
+            echo "Safe-Patching: $f"
+            # Hapus patch lama jika ada agar tidak double
+            sudo sed -i '/\/\*\* NOC Intelligence/d' "$f"
+            # Suntikkan kode murni (hanya logic plugin) ke baris terakhir
+            sudo tee -a "$f" < "$REPO_APP_JS" > /dev/null
+        fi
+    done
     sudo systemctl restart genieacs-ui
-    echo -e "${GREEN}✔ UI Intelligence v3.5 synchronized and Service Restarted.${NC}"
+    echo -e "${GREEN}✔ UI v4.5 Safe-Injected & Service Restarted.${NC}"
 else
-    echo -e "${RED}✘ Error: File $REPO_APP_JS tidak ditemukan. UI tidak terupdate.${NC}"
+    echo -e "${RED}✘ Error: Repo file $REPO_APP_JS tidak ditemukan.${NC}"
 fi
 # --- END UI INJECTION ---
 
