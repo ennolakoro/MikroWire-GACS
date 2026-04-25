@@ -1,0 +1,183 @@
+00259E-EG8145V5-485754433F9D2DB4
+Pinging 192.168.30.191: Error!
+Last inform	25/4/2026, 20.48.46onSummon
+ACS-Register	25/4/2026, 12.17.49
+Devices-Uptime	1d 20:09:03
+PPP-Uptime	1d 20:06:38
+Manufacturer	Huawei Technologies Co., Ltd
+Devices Type	EG8145V5
+SN ONT	HWTC3F9D2DB4
+MAC Address	1C:E5:04:6C:24:BF
+Hardware version	26AD.A
+Software version	V5R022C10S218
+OUI	00259E
+Link Type	GPON
+Optic Rx Power	-15
+Temperatur	58
+PPPoE Username	user
+PPPoE Password	
+IP PPPOE	192.168.30.190
+IP TR069	192.168.30.191
+Total Perangkat Wifi Aktif	0
+WiFi SSID	Restoe Boemi Ernest
+WiFi Password	
+ 
+Parameter Setting
+WAN PPP 1	Summon
+Enable	Conn Name	Conn Mode	Service List	IP	Username	Password	NAT	VLAN	LAN1	LAN2	LAN3	LAN4	SSID1	SSID2	SSID3	SSID4	SSID5	SSID6	SSID7	SSID8
+No instances
+
+WAN PPP 2	Summon
+Enable	Conn Name	Conn Mode	Service List	IP	Username	Password	NAT	VLAN	LAN1	LAN2	LAN3	LAN4	SSID1	SSID2	SSID3	SSID4	SSID5	SSID6	SSID7	SSID8
+true	2_INTERNET_R_VID_100	IP_Routed	INTERNET	192.168.30.190	user		true	100	0	1	0	0	0	0	0	0					
+
+WAN PPP 3	Summon
+Enable	Conn Name	Conn Mode	Service List	IP	Username	Password	NAT	VLAN	LAN1	LAN2	LAN3	LAN4	SSID1	SSID2	SSID3	SSID4	SSID5	SSID6	SSID7	SSID8
+No instances
+
+WAN IP 1	Summon
+Enable	Conn Name	IP TYPE	Conn Mode	Service List	IP	NAT	VLAN	LAN1	LAN2	LAN3	LAN4	SSID1	SSID2	SSID3	SSID4	SSID5	SSID6	SSID7	SSID8
+true	1_INTERNET_B_VID_200		IP_Bridged	INTERNET		false	200	1	0	0	0	1	0	0	0					
+
+WAN IP 2	Summon
+Enable	Conn Name	IP TYPE	Conn Mode	Service List	IP	NAT	VLAN	LAN1	LAN2	LAN3	LAN4	SSID1	SSID2	SSID3	SSID4	SSID5	SSID6	SSID7	SSID8
+No instances
+
+WAN IP 3	Summon
+Enable	Conn Name	IP TYPE	Conn Mode	Service List	IP	NAT	VLAN	LAN1	LAN2	LAN3	LAN4	SSID1	SSID2	SSID3	SSID4	SSID5	SSID6	SSID7	SSID8
+true	OLT_C_TR069_DHCP_WAN		IP_Routed	TR069	192.168.30.191	false	20	0	0	0	0	0	0	0	0					
+
+WAN Tersedia	Summon
+Name		WAN Entries	
+1_INTERNET_B_VID_200	1	0	
+2_INTERNET_R_VID_100		0	1	
+OLT_C_TR069_DHCP_WAN	1	0	
+
+Firewall	Summon
+OPEN PORT LAN (LAYER3).	Summon
+SSID-LIST	Summon
+Enable	SSID	Security	Password	Broadcast	Power %	Freq	Auto Channel	Channel	Connected
+true	Restoe Boemi Ernest	Basic		true	100		false	12		
+true	@Ezza	11i		true	100		true	36	0	
+
+Wifi Connected SSID1	Summon
+Host Name	IP Address	MAC Addr	Width Freq	RSSI	Noise	Quality
+0.0.0.0	92:AF:1F:0C:69:97	20MHz	-46	-89	48	
+
+Wifi Connected SSID5	Summon
+Host Name	IP Address	MAC Addr	Width Freq	RSSI	Noise	Quality
+No instances
+
+LAN HOST	Summon
+Host name	IP address	MAC address	Type
+No instances
+
+Admin Web	Summon
+Faults
+Channel	Code	Message	Detail	Retries	Timestamp
+No faults
+All parameters
+Download
+Search parameters
+DeviceID.ID	00259E-EG8145V5-485754433F9D2DB4
+DeviceID.Manufacturer	Huawei Technologies Co., Ltd
+DeviceID.OUI	00259E
+DeviceID.ProductClass	EG8145V5
+DeviceID.SerialNumber	485754433F9D2DB4
+Events.1_BOOT	25/4/2026, 12.17.49
+Events.Inform	25/4/2026, 20.48.46
+Events.Registered	25/4/2026, 12.17.49
+InternetGatewayDevice	
+InternetGatewayDevice.BulkData	
+InternetGatewayDevice.Capabilities	
+InternetGatewayDevice.DHCPv4	
+InternetGatewayDevice.DHCPv6	
+InternetGatewayDevice.DNS	
+InternetGatewayDevice.DeviceConfig	
+InternetGatewayDevice.DeviceInfo	
+InternetGatewayDevice.DeviceSummary	InternetGatewayDevice:1.4[](Baseline:1, EthernetLAN:1, WiFiLAN:2, Time:1, IPPing:1, DeviceAssociation:1), VoiceService:1.0[1](Endpoint:1, SIPEndpoint:1)
+InternetGatewayDevice.Diagnostics	
+InternetGatewayDevice.DownloadDiagnostics	
+InternetGatewayDevice.IPPingDiagnostics	
+InternetGatewayDevice.LANConfigSecurity	
+InternetGatewayDevice.LANDevice	
+InternetGatewayDevice.LANDeviceNumberOfEntries	
+InternetGatewayDevice.LANInterfaces	
+InternetGatewayDevice.Layer3Forwarding	
+InternetGatewayDevice.ManagementServer	
+InternetGatewayDevice.Optical	
+InternetGatewayDevice.QueueManagement	
+InternetGatewayDevice.Security	
+InternetGatewayDevice.ServerSelectionDiagnostics	
+InternetGatewayDevice.Services	
+InternetGatewayDevice.SoftwareModules	
+InternetGatewayDevice.Time	
+InternetGatewayDevice.TraceRouteDiagnostics	
+InternetGatewayDevice.UDPEchoConfig	
+InternetGatewayDevice.UploadDiagnostics	
+InternetGatewayDevice.UserInterface	
+InternetGatewayDevice.WANDevice	
+InternetGatewayDevice.WANDeviceNumberOfEntries	
+InternetGatewayDevice.WlanDfsControl	
+InternetGatewayDevice.X_HW_ALG	
+InternetGatewayDevice.X_HW_APDevice	
+InternetGatewayDevice.X_HW_APMPolicy	
+InternetGatewayDevice.X_HW_APService	
+InternetGatewayDevice.X_HW_ARPPingDiagnostics	
+InternetGatewayDevice.X_HW_AmpInfo	
+InternetGatewayDevice.X_HW_AppRemoteManage	
+InternetGatewayDevice.X_HW_Arp	
+InternetGatewayDevice.X_HW_AutoReboot	
+InternetGatewayDevice.X_HW_CHL_SCAN	
+InternetGatewayDevice.X_HW_CheckSafety	
+InternetGatewayDevice.X_HW_ConfigExportPolicy	
+InternetGatewayDevice.X_HW_DHCPSLVSERVER	
+InternetGatewayDevice.X_HW_DHCP_PING_EMULATOR	
+InternetGatewayDevice.X_HW_DNS	
+InternetGatewayDevice.X_HW_Dot1agCfm	
+InternetGatewayDevice.X_HW_EasyMeshSwitch	
+InternetGatewayDevice.X_HW_FeatureList	
+InternetGatewayDevice.X_HW_GRETunnel	
+InternetGatewayDevice.X_HW_IPTV	
+InternetGatewayDevice.X_HW_IPv6	
+InternetGatewayDevice.X_HW_IPv6Layer3Forwarding	
+InternetGatewayDevice.X_HW_IperfSpeedTest	
+InternetGatewayDevice.X_HW_KMC	
+InternetGatewayDevice.X_HW_MainUPnP	
+InternetGatewayDevice.X_HW_NeighborDiscovery	
+InternetGatewayDevice.X_HW_NetInfo_Acquisition	
+InternetGatewayDevice.X_HW_Option	
+InternetGatewayDevice.X_HW_POTSDeviceNumber	
+InternetGatewayDevice.X_HW_PPPOE_EMLUATOR	
+InternetGatewayDevice.X_HW_PPPoE_BridgeWAN_AutoEmulator	
+InternetGatewayDevice.X_HW_PonQualityMonitor	
+InternetGatewayDevice.X_HW_SFTP	
+InternetGatewayDevice.X_HW_Security	
+InternetGatewayDevice.X_HW_SecurityConfigurationCheck	
+InternetGatewayDevice.X_HW_ServiceManage	
+InternetGatewayDevice.X_HW_SlvUPnP	
+InternetGatewayDevice.X_HW_SmartCAT	
+InternetGatewayDevice.X_HW_SmartTopo	
+InternetGatewayDevice.X_HW_UplinkQos	
+InternetGatewayDevice.X_HW_WIFIInfo	
+InternetGatewayDevice.X_HW_WiFiDiagnostic	
+InternetGatewayDevice.X_HW_WifiCoverService	
+InternetGatewayDevice.X_HW_eMDI	
+VirtualParameters	
+VirtualParameters.IPTR069	192.168.30.191
+VirtualParameters.PonMac	1C:E5:04:6C:24:BD
+VirtualParameters.RXPower	-15
+VirtualParameters.WlanPassword	
+VirtualParameters.activedevices	0
+VirtualParameters.getSerialNumber	HWTC3F9D2DB4
+VirtualParameters.getdeviceuptime	1d 20:09:03
+VirtualParameters.getponmode	GPON
+VirtualParameters.getpppuptime	1d 20:06:38
+VirtualParameters.gettemp	58
+VirtualParameters.pppoeIP	192.168.30.190
+VirtualParameters.pppoeMac	1C:E5:04:6C:24:BF
+VirtualParameters.pppoePassword	
+VirtualParameters.pppoeUsername	user
+VirtualParameters.pppoeUsername2	user
+Displaying 100 out of 1038 parameters.
+RebootResetPush fileDelete

@@ -1,0 +1,38 @@
+=====================================================
+PANDUAN DHCP OPTION 43 - MIKROWIRE GENIEACS
+=====================================================
+
+DHCP Option 43 digunakan agar ONT yang baru di-reset otomatis mendapatkan 
+URL ACS (GenieACS) tanpa perlu disetting manual satu-per-satu.
+
+LANGKAH 1: KONVERSI URL KE HEX
+------------------------------
+URL ACS Anda harus diubah ke format Hexadecimal. 
+Contoh URL: http://192.168.30.1:7547/
+
+Gunakan converter online (string to hex) atau hitung manual.
+Value Hex untuk "http://192.168.30.1:7547/" adalah:
+687474703a2f2f3139322e3136382e33302e313a373534372f
+
+LANGKAH 2: SETTING DI MIKROTIK (WINBOX/CLI)
+-------------------------------------------
+1. Buka Terminal MikroTik.
+2. Tambahkan Option 43 (Ganti [HEX_VALUE] dengan hasil konversi Anda):
+
+/ip dhcp-server option
+add code=43 name=acs_url value=0x687474703a2f2f3139322e3136382e33302e313a373534372f
+
+3. Pasang Option tersebut ke DHCP Network yang digunakan oleh ONT:
+
+/ip dhcp-server network
+set [find address="192.168.30.0/24"] dhcp-option=acs_url
+
+CATATAN KHUSUS VENDOR:
+----------------------
+- HUAWEI: Beberapa seri memerlukan prefix '01' atau '02' di depan Hex.
+- ZTE: Biasanya langsung menerima string Hex URL tersebut.
+- Jika tidak jalan, coba tambahkan sub-option vendor-space.
+
+=====================================================
+Dibuat oleh: Senior Network Engineer (MikroWire ID)
+=====================================================
