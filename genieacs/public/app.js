@@ -1,5 +1,5 @@
 
-/** NOC Intelligence v6.0 - CLEAN & COMPACT EDITION **/
+/** NOC Intelligence v6.1 - PRO-STABILITY EDITION **/
 (function() {
   const css = `
     :root {
@@ -11,12 +11,11 @@
     /* 1. GLOBAL UI CLEANUP */
     html, body, #page, .container-fluid, .device-page { 
       background-color: var(--mw-bg) !important; color: var(--mw-text) !important; 
+      font-family: 'Inter', sans-serif !important;
     }
     
-    /* Sembunyikan Header & Teks Sampah */
-    h3.Summon, .summon-button, .Parameter_Setting, 
-    h3:contains("Faults"), h3:contains("All parameters"),
-    div:contains("ChannelCodeMessageDetailRetriesTimestampNo faults") { 
+    /* Sembunyikan elemen secara paksa via CSS Selector yang valid */
+    h3.Summon, .summon-button, .Parameter_Setting, .all-parameters, .device-faults { 
       display: none !important; 
     }
 
@@ -25,12 +24,14 @@
       display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 20px 0; padding: 8px;
       background: rgba(13, 17, 23, 0.95); border-radius: 12px; border: 1px solid var(--mw-border);
       position: sticky; top: 0; z-index: 99999; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
     }
     .mw-tab-btn {
       background: rgba(33, 38, 45, 0.7); border: 1px solid var(--mw-border);
       color: #8b949e; padding: 10px 18px; cursor: pointer;
       border-radius: 8px; font-weight: 700; font-size: 10.5px;
       text-transform: uppercase; letter-spacing: 1px; transition: 0.2s;
+      outline: none;
     }
     .mw-tab-btn:hover { color: #fff; background: #30363d; }
     .mw-tab-btn.active {
@@ -50,7 +51,9 @@
     .mw-hidden { display: none !important; }
   `;
 
-  const s = document.createElement('style'); s.innerHTML = css; document.head.appendChild(s);
+  if (!document.getElementById('mw-style-v6')) {
+    const s = document.createElement('style'); s.id='mw-style-v6'; s.innerHTML = css; document.head.appendChild(s);
+  }
 
   function transform() {
     if (!location.hash.includes('/devices/')) return;
@@ -58,12 +61,17 @@
 
     const mainArea = document.querySelector('.container-fluid') || document.querySelector('.device-page') || document.body;
     
-    // Sembunyikan teks spesifik "FaultsChannel..." yang sering muncul menggantung
-    mainArea.childNodes.forEach(node => {
-        if (node.nodeType === 3 && node.textContent.includes('FaultsChannel')) node.textContent = '';
+    // Logic JS untuk menghapus teks sampah yang tidak bisa dihapus CSS
+    const trashWords = ["Faults", "Channel", "Code", "Message", "Detail", "Retries", "Timestamp", "No faults", "Parameter Setting", "All parameters"];
+    mainArea.querySelectorAll('h3, div, span').forEach(el => {
+        trashWords.forEach(word => {
+            if (el.innerText === word || el.innerText.includes("FaultsChannel")) {
+                el.style.display = 'none';
+            }
+        });
     });
 
-    const rawHeaders = Array.from(mainArea.querySelectorAll('h3'));
+    const rawHeaders = Array.from(mainArea.querySelectorAll('h3')).filter(h => h.offsetParent !== null);
     if (rawHeaders.length === 0) return;
 
     const tabs = {
@@ -73,7 +81,6 @@
       'LAN/OTHER': { icon: '🔌', content: document.createElement('div') }
     };
 
-    // 1. Process Summary (Top-most info)
     let curr = mainArea.firstChild;
     while (curr && curr !== rawHeaders[0]) {
       let next = curr.nextSibling;
@@ -83,7 +90,6 @@
       curr = next;
     }
 
-    // 2. Intelligence Mapping (Merangkum section ke dalam kategori Tab)
     rawHeaders.forEach(h => {
       const text = h.innerText.toUpperCase();
       let targetTab = 'LAN/OTHER';
@@ -92,23 +98,18 @@
       else if (text.includes('WIFI') || text.includes('SSID') || text.includes('WLAN')) targetTab = 'WLAN';
       else if (text.includes('SUMMARY')) targetTab = 'SUMMARY';
       
-      // Sembunyikan Faults & All Parameters dari Tab
-      if (text.includes('FAULT') || text.includes('ALL PARAMETER')) {
-        h.style.display = 'none';
-        let n = h.nextElementSibling;
-        while(n && n.tagName !== 'H3') { n.style.display = 'none'; n = n.nextElementSibling; }
+      if (text.includes('FAULT') || text.includes('ALL PARAMETER') || text.includes('SETTING')) {
+        h.classList.add('mw-hidden');
         return;
       }
 
       const subWrapper = document.createElement('div');
       subWrapper.style.marginBottom = '20px';
-      
-      // Tambahkan label kecil untuk membedakan sub-section (misal WAN-PPP 1)
       const label = document.createElement('div');
       label.style.color = 'var(--mw-primary)';
       label.style.fontSize = '11px';
       label.style.fontWeight = 'bold';
-      label.style.marginBottom = '5px';
+      label.style.marginBottom = '8px';
       label.innerText = '❯ ' + h.innerText.replace('Summon','').trim();
       subWrapper.appendChild(label);
 
@@ -118,18 +119,16 @@
         subWrapper.appendChild(next);
         next = temp;
       }
-      
       tabs[targetTab].content.appendChild(subWrapper);
       h.classList.add('mw-hidden');
     });
 
-    // 3. Render Tab Bar
     const tabBar = document.createElement('div');
     tabBar.className = 'mw-tabs-container';
     
     Object.keys(tabs).forEach((key, idx) => {
       const tab = tabs[key];
-      if (tab.content.childNodes.length === 0) return; // Jangan buat tab kosong
+      if (tab.content.childNodes.length === 0) return;
 
       tab.content.className = 'mw-tab-content' + (idx === 0 ? ' active' : '');
       const btn = document.createElement('button');
@@ -142,13 +141,10 @@
         btn.classList.add('active');
         tab.content.classList.add('active');
       };
-      
       tabBar.appendChild(btn);
       mainArea.appendChild(tab.content);
     });
-
     mainArea.prepend(tabBar);
   }
-
   setInterval(transform, 1000);
 })();
