@@ -1,5 +1,5 @@
 
-/** NOC Intelligence v15.0 - NOC ELITE (ISP Grade) **/
+/** NOC Intelligence v15.1 - FULL IMMERSION (Seamless UI) **/
 (function() {
   const css = `
     :root {
@@ -7,9 +7,38 @@
       --mw-card: #161b22; --mw-border: #30363d; --mw-text: #c9d1d9;
       --mw-error: #ff4444;
     }
-    body, html { background-color: var(--mw-bg) !important; color: var(--mw-text) !important; }
+
+    /* 1. SEAMLESS HEADER & NAVIGATION */
+    header, nav, .navbar, #nav, .navigation, .top-bar { 
+      background-color: var(--mw-bg) !important; 
+      border-bottom: 1px solid var(--mw-border) !important;
+      background-image: none !important;
+    }
     
-    /* FAULT & NOTIFICATION - HIGH PRIORITY */
+    .navbar-brand, .logo { filter: brightness(0) invert(1); opacity: 0.9; }
+    
+    /* Nav Links Styling */
+    nav a, .nav-link, #nav a { 
+      color: #8b949e !important; font-weight: 600 !important; 
+      text-transform: uppercase !important; font-size: 11px !important;
+      letter-spacing: 1px !important; transition: 0.3s !important;
+    }
+    
+    nav a:hover, .nav-link:hover { color: var(--mw-primary) !important; }
+    
+    nav a.active, .nav-link.active, .nav-item.active a { 
+      color: var(--mw-primary) !important; 
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5) !important;
+      border-bottom: 2px solid var(--mw-primary) !important;
+    }
+
+    /* 2. GLOBAL BODY RESET */
+    body, html, #page, .container-fluid, .device-page { 
+      background-color: var(--mw-bg) !important; color: var(--mw-text) !important; 
+      font-family: 'Inter', sans-serif !important;
+    }
+    
+    /* 3. FAULT & NOTIFICATION - HIGH PRIORITY */
     .alert, .fault, .error, .notification, .alert-danger, #faults { 
       display: block !important; position: fixed !important; top: 100px !important; 
       left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px;
@@ -24,7 +53,7 @@
       padding: 10px 20px; border-bottom: 1px solid var(--mw-border);
       box-shadow: 0 10px 40px rgba(0,0,0,0.9);
     }
-    .mw-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .mw-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 10px; }
     .mw-pill { background: var(--mw-card); padding: 10px; border-radius: 8px; border-left: 4px solid var(--mw-primary); border-top: 1px solid var(--mw-border); }
     .mw-pill-label { font-size: 9px; color: var(--mw-secondary); text-transform: uppercase; font-weight: 800; }
     .mw-pill-value { font-size: 12px; font-family: monospace; color: #fff; margin-top: 3px; }
@@ -56,8 +85,8 @@
     h3.Summon, .summon-button, .Parameter_Setting, .all-parameters, .device-faults, .mw-trash { display: none !important; }
   `;
 
-  if (!document.getElementById('mw-elite-styles')) {
-    const s = document.createElement('style'); s.id='mw-elite-styles'; s.innerHTML = css; document.head.appendChild(s);
+  if (!document.getElementById('mw-full-styles')) {
+    const s = document.createElement('style'); s.id='mw-full-styles'; s.innerHTML = css; document.head.appendChild(s);
   }
 
   let activeTab = 'NETWORK';
@@ -70,7 +99,6 @@
     const container = document.querySelector('.device-page') || document.querySelector('.container-fluid');
     if (!container) return;
 
-    // 1. HUD Lifecycle
     let hud = document.getElementById('mw-hud');
     if (!hud) {
       hud = document.createElement('div');
@@ -87,34 +115,26 @@
       document.body.setAttribute('data-mw-tab', activeTab);
     }
 
-    // 2. Precision Tagging & Mirroring
     const stats = hud.querySelector('#mw-stats');
     let currentG = 'SYSTEM';
     const groupMap = { 'NETWORK': ['WAN', 'IP', 'PPP', 'VLAN'], 'WIRELESS': ['WIFI', 'SSID', 'WLAN', 'CONNECTED'] };
 
     Array.from(container.children).forEach(el => {
       if (el.id === 'mw-hud' || el.classList.contains('alert') || el.classList.contains('fault')) return;
-      
       const txt = (el.innerText || "").trim();
-      
-      // Precision Extraction ke HUD
       if (txt.includes(':') && el.tagName !== 'TABLE' && el.childNodes.length < 6) {
         const p = txt.split(':');
         const label = p[0].trim();
         const id = 'stat-' + label.replace(/\s+/g, '-');
         let item = document.getElementById(id);
         if (!item) { item = document.createElement('div'); item.id = id; item.className = 'mw-pill'; stats.appendChild(item); }
-        
         let val = p[1].trim();
-        // Hanya tandai Offline jika memang ada indikator visual asli offline
         const isOffline = el.querySelector('.offline') || (label === 'Last Inform' && el.innerText.includes('off') && !el.innerText.includes('on'));
         let valClass = isOffline ? 'mw-pill-value offline' : 'mw-pill-value';
-        
         item.innerHTML = `<div class="mw-pill-label">${label}</div><div class="${valClass}">${val}</div>`;
         el.classList.add('mw-trash');
         return;
       }
-
       if (el.tagName === 'H3') {
         currentG = 'SYSTEM';
         for(let g in groupMap) { if(groupMap[g].some(k => txt.toUpperCase().includes(k))) { currentG = g; break; } }
