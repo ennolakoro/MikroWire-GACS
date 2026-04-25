@@ -156,8 +156,8 @@ EOF
     sudo systemctl enable --now genieacs-{cwmp,nbi,fs,ui}
 fi
 
-# --- NOC INTELLIGENCE UI INJECTION (v4.5 SAFE PATCHER) ---
-type_out "${CYAN}>>> Melakukan Safe-Patching MikroWire NOC UI v4.5..."
+# --- NOC INTELLIGENCE UI INJECTION (v5.0 TOTAL TRANSFORMATION) ---
+type_out "${CYAN}>>> Melakukan Total-Transformation UI v5.0..."
 GENIE_PATH=$(npm list -g genieacs --parseable 2>/dev/null | head -n 1)
 if [ -z "$GENIE_PATH" ]; then GENIE_PATH="/usr/lib/node_modules/genieacs"; fi
 SYSTEM_PUBLIC="$GENIE_PATH/public"
@@ -166,15 +166,13 @@ REPO_APP_JS="./genieacs/public/app.js"
 if [ -f "$REPO_APP_JS" ]; then
     for f in "$SYSTEM_PUBLIC"/app*.js; do
         if [ -f "$f" ]; then
-            echo "Safe-Patching: $f"
-            # Hapus patch lama jika ada agar tidak double
+            echo "Applying Total Transformation: $f"
             sudo sed -i '/\/\*\* NOC Intelligence/d' "$f"
-            # Suntikkan kode murni (hanya logic plugin) ke baris terakhir
             sudo tee -a "$f" < "$REPO_APP_JS" > /dev/null
         fi
     done
     sudo systemctl restart genieacs-ui
-    echo -e "${GREEN}✔ UI v4.5 Safe-Injected & Service Restarted.${NC}"
+    echo -e "${GREEN}✔ UI v5.0 Total Transformation Applied & Service Restarted.${NC}"
 else
     echo -e "${RED}✘ Error: Repo file $REPO_APP_JS tidak ditemukan.${NC}"
 fi
