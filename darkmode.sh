@@ -156,8 +156,8 @@ EOF
     sudo systemctl enable --now genieacs-{cwmp,nbi,fs,ui}
 fi
 
-# --- NOC INTELLIGENCE UI INJECTION (v12.0 V-DOM MASTERMIND) ---
-type_out "${CYAN}>>> Melakukan Ultra-Stable Transformation UI v12.0..."
+# --- NOC INTELLIGENCE UI INJECTION (v13.0 NETWORK-RESILIENT) ---
+type_out "${CYAN}>>> Melakukan Ultra-Stable Transformation UI v13.0..."
 GENIE_PATH=$(npm list -g genieacs --parseable 2>/dev/null | head -n 1)
 if [ -z "$GENIE_PATH" ]; then GENIE_PATH="/usr/lib/node_modules/genieacs"; fi
 SYSTEM_PUBLIC="$GENIE_PATH/public"
@@ -166,13 +166,13 @@ REPO_APP_JS="./genieacs/public/app.js"
 if [ -f "$REPO_APP_JS" ]; then
     for f in "$SYSTEM_PUBLIC"/app*.js; do
         if [ -f "$f" ]; then
-            echo "Applying v12.0 V-DOM Mastermind: $f"
+            echo "Applying v13.0 Network-Resilient: $f"
             sudo sed -i '/\/\*\* NOC Intelligence/d' "$f"
             sudo tee -a "$f" < "$REPO_APP_JS" > /dev/null
         fi
     done
     sudo systemctl restart genieacs-ui
-    echo -e "${GREEN}✔ UI v12.0 Final Mastermind Applied & Service Restarted.${NC}"
+    echo -e "${GREEN}✔ UI v13.0 Final Network-Resilient Applied & Service Restarted.${NC}"
 else
     echo -e "${RED}✘ Error: Repo file $REPO_APP_JS tidak ditemukan.${NC}"
 fi
