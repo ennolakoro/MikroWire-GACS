@@ -1,0 +1,50 @@
+=====================================================
+SOLUSI MODEM OFFLINE SAAT COMMIT (NAT/VPS ISSUE)
+=====================================================
+Dibuat oleh: Senior Network Engineer (20 Years Exp)
+
+MASALAH:
+Saat klik Commit, muncul error "Device is offline". 
+Penyebab: VPS tidak bisa mengirim paket Connection Request ke 
+Port 7547 Modem karena modem berada di belakang NAT (IP Private).
+
+-----------------------------------------------------
+SOLUSI A: MENGGUNAKAN STUN (REKOMENDASI)
+-----------------------------------------------------
+STUN memungkinkan modem membuka jalur komunikasi keluar ke VPS 
+secara terus menerus (Keep-alive).
+
+1. Setting di Modem (HUAWEI/ZTE):
+   - Buka menu: Management Server / TR-069.
+   - Centang "Enable STUN".
+   - STUN Server Address: [IP VPS ANDA] atau stun.l.google.com
+   - STUN Port: 19302 (Default).
+   - STUN Minimum/Maximum Keep-alive: 30 - 60 detik.
+
+2. Setting di GenieACS:
+   - Pastikan URL Connection Request modem di ACS sudah menggunakan 
+     IP Publik yang didapat dari STUN (otomatis oleh ACS).
+
+-----------------------------------------------------
+SOLUSI B: MIKROTIK PORT FORWARDING (UNTUK 1 MODEM)
+-----------------------------------------------------
+Jika hanya ada beberapa modem, gunakan DST-NAT di Mikrotik:
+
+/ip firewall nat
+add chain=dstnat protocol=tcp dst-port=7547 action=dst-nat \
+    to-addresses=[IP_PRIVATE_MODEM] to-ports=7547
+
+-----------------------------------------------------
+SOLUSI C: MIKROTIK FIREWALL OPTIMIZATION
+-----------------------------------------------------
+Pastikan Mikrotik tidak "mencampuri" paket Connection Request.
+
+/ip firewall service-port
+set sip disabled=yes
+
+-----------------------------------------------------
+TIPS SENIOR:
+Jika Anda menggunakan modem ZTE F609/F660, pastikan Firewall 
+di dalam modem diatur ke "Low" atau "Off" agar port 7547 
+bisa menerima paket dari luar.
+=====================================================
