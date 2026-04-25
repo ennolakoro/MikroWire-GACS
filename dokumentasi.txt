@@ -1,0 +1,65 @@
+=========================================
+DOKUMENTASI UI - GENIEACS CUSTOMER PORTAL
+=========================================
+
+1. DESKRIPSI UMUM
+Portal ini adalah antarmuka web modern yang dirancang untuk pelanggan ISP agar dapat mengelola perangkat ONU/ONT mereka secara mandiri (self-service) melalui integrasi GenieACS.
+
+2. GAYA VISUAL (UI STYLE)
+- Framework: Bootstrap 5 dengan desain kustom.
+- Tema: Modern Glassmorphism (efek kaca transparan pada elemen tertentu).
+- Background: Gradasi Linear (Blue/Silver) yang memberikan kesan profesional.
+- Tipografi: Segoe UI / Sans-serif yang bersih dan mudah dibaca.
+- Ikon: Menggunakan Bootstrap Icons (Bi-Icons) untuk representasi visual data.
+- Responsivitas: Full Responsive (otomatis menyesuaikan tampilan di HP, Tablet, maupun PC).
+
+3. KOMPONEN UTAMA UI
+
+   A. HALAMAN LOGIN
+   - Desain minimalis terpusat (center-aligned).
+   - Card login dengan shadow halus.
+   - Input: ID/Tag Pelanggan (Nomor HP atau ID unik lainnya).
+   - Tanpa password (berbasis validasi Tag di GenieACS).
+
+   B. NAVBAR (BILAH NAVIGASI)
+   - Logo ISP di sebelah kiri.
+   - Indikator Status Perangkat (Badge Hijau untuk Online, Abu-abu untuk Offline).
+   - Tombol Refresh (ikon putar) untuk memperbarui data dashboard.
+   - Tombol Logout (ikon pintu keluar) dengan warna merah.
+
+   C. DASHBOARD (STATS GRID)
+   Menampilkan informasi perangkat dalam bentuk kartu statistik (Stat Cards):
+   - Status Perangkat: Online/Offline.
+   - SSID Saat Ini: Nama WiFi yang aktif.
+   - Software Version: Versi firmware perangkat.
+   - Last Inform: Waktu terakhir perangkat berkomunikasi dengan server.
+   - RX Power: Kekuatan sinyal (redaman) dalam dBm.
+   - PPPoE IP: Alamat IP koneksi PPPoE.
+   - Bridge IP (BARU): Alamat IP yang didapatkan saat mode Bridge aktif.
+   - PPPoE Username: Akun PPPoE yang terpasang.
+   - User Terhubung: Jumlah perangkat yang sedang terkoneksi ke WiFi.
+
+   D. WiFi SELF-SERVICE (FORM SETTINGS)
+   - Ganti SSID: Form input untuk mengubah nama WiFi (Otomatis mendukung Dual-Band 2.4G & 5G).
+   - Ganti Password: Form input dengan mask password untuk keamanan, minimal 8 karakter.
+
+   E. REMOTE MANAGEMENT
+   - Tombol Reboot: Tombol merah mencolok untuk memicu restart perangkat.
+   - Konfirmasi: Muncul pop-up konfirmasi sebelum perintah reboot dikirimkan.
+
+   F. TABEL PERANGKAT TERHUBUNG
+   - Menampilkan detail perangkat yang sedang aktif di jaringan lokal (LAN/WiFi).
+   - Kolom: Hostname, IP Address, MAC Address, Interface (WiFi/Ethernet), dan Status.
+
+4. FITUR NOTIFIKASI
+- Alert Success: Muncul di bagian atas saat berhasil ganti SSID/Password atau Reboot.
+- Auto-Hide: Notifikasi akan menghilang otomatis dalam 3 detik untuk menjaga kebersihan UI.
+
+5. PEMBARUAN TERBARU
+- Penambahan Kartu Statistik "Bridge IP" pada dashboard utama.
+- Integrasi logic Auto-Bridge yang memungkinkan perangkat diatur ke mode bridge melalui backend/bot.
+
+-----------------------------------------
+Dibuat oleh: Gemini CLI
+Tanggal: 25 April 2026
+Project: MikroWire-GACS
