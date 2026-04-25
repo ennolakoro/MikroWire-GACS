@@ -1,0 +1,56 @@
+=====================================================
+PANDUAN HAPUS TOTAL & INSTALL ULANG MIKROWIRE GACS
+=====================================================
+
+Ikuti langkah-langkah di bawah ini untuk memastikan tidak ada sisa konfigurasi lama atau cache yang tersangkut di sistem.
+
+Langkah 1: Hentikan Semua Service GenieACS
+------------------------------------------
+sudo systemctl stop genieacs-{cwmp,fs,ui,nbi}
+sudo systemctl disable genieacs-{cwmp,fs,ui,nbi}
+
+Langkah 2: Hapus File Sistem & Binary
+-------------------------------------
+# Hapus folder instalasi dan log
+sudo rm -rf /opt/genieacs
+sudo rm -rf /var/log/genieacs
+
+# Hapus binary dari folder global node_modules
+sudo npm uninstall -g genieacs
+
+# Hapus file service systemd
+sudo rm /etc/systemd/system/genieacs-*
+sudo systemctl daemon-reload
+
+Langkah 3: Hapus Database MongoDB (Penting!)
+--------------------------------------------
+# Masuk ke shell mongo dan hapus database genieacs
+mongosh --eval "db.getSiblingDB('genieacs').dropDatabase()"
+# Jika menggunakan versi lama (mongo), gunakan:
+# mongo genieacs --eval "db.dropDatabase()"
+
+Langkah 4: Bersihkan Folder Project & Tarik Update Terbaru
+----------------------------------------------------------
+cd ~/MikroWire-GACS
+# Reset folder agar bersih dari perubahan manual
+git reset --hard HEAD
+git pull origin feature/modern-ui
+
+Langkah 5: Jalankan Instalasi Fresh v4.5
+----------------------------------------
+chmod +x darkmode.sh
+sudo ./darkmode.sh
+
+Langkah 6: Bersihkan Cache Browser (WAJIB)
+------------------------------------------
+Setelah instalasi selesai:
+1. Buka browser.
+2. Tekan Ctrl + Shift + Del.
+3. Pilih "Cached images and files" (Hapus Cache).
+4. Refresh halaman dashboard (Ctrl + F5).
+
+Atau buka dashboard menggunakan MODE INCOGNITO.
+
+=====================================================
+Dibuat oleh: Senior Programmer (MikroWire Digital)
+=====================================================
