@@ -1,0 +1,105 @@
+/* MikroWire Modern UI - GenieACS Tab System */
+
+/* Global Hacker/Cyberpunk Style */
+:root {
+  --primary-color: #00ff88;
+  --bg-dark: #0d1117;
+  --card-bg: #161b22;
+  --border-color: #30363d;
+  --text-main: #c9d1d9;
+  --accent-color: #58a6ff;
+}
+
+/* Tab Container */
+.mw-tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.mw-tab-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.mw-tab-btn.active {
+  background: var(--primary-color);
+  color: #000;
+  border-color: var(--primary-color);
+}
+
+.mw-tab-btn:hover:not(.active) {
+  background: #21262d;
+  border-color: #8b949e;
+}
+
+/* Hide original headers that are now tabs */
+.mw-hidden-section-header {
+  display: none !important;
+}
+
+/* Section Content Styling */
+.mw-tab-content {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.mw-tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Table Styling Enhancement */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+th {
+  background: #21262d;
+  color: var(--primary-color);
+  text-align: left;
+  padding: 12px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+tr:hover {
+  background: rgba(0, 255, 136, 0.05);
+}
+
+/* Device Header Info Styling */
+.device-header-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary-color);
+  margin-bottom: 30px;
+}
