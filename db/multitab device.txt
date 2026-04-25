@@ -3,47 +3,62 @@
   components:
     - type: "'tags'"
     - type: "'ping'"
-    - type: "'parameter-list'"
-      parameters:
-        - element: "'span.inform'"
-          label: "'Last Inform'"
-          parameter: DATE_STRING(Events.Inform)
+    - element: "'div.summary-section'"
+      type: "'container'"
+      components:
+        - element: "'h4'"
           type: "'container'"
           components:
-            - type: "'parameter'"
-            - chart: "'online'"
-              type: "'overview-dot'"
-            - type: "'summon-button'"
-              parameters:
-                - InternetGatewayDevice.DeviceInfo.HardwareVersion
-                - InternetGatewayDevice.DeviceInfo.SoftwareVersion
-                - InternetGatewayDevice
-        - label: "'Serial number'"
-          parameter: DeviceID.SerialNumber
-        - label: "'Product class'"
-          parameter: DeviceID.ProductClass
-        - label: "'OUI'"
-          parameter: DeviceID.OUI
-        - label: "'Serial number'"
-          parameter: DeviceID.SerialNumber
-        - label: "'Manufacturer'"
-          parameter: DeviceID.Manufacturer
-        - label: "'Hardware version'"
-          parameter: InternetGatewayDevice.DeviceInfo.HardwareVersion
-        - label: "'Software version'"
-          parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
-        - label: "'MAC'"
-          parameter: VirtualParameters.MacAddress
-        - label: "'IP'"
-          parameter: VirtualParameters.pppIP
+            - "'📡 Connection Status'"
+        - type: "'parameter-list'"
+          parameters:
+            - element: "'span.inform'"
+              label: "'Last Inform'"
+              parameter: DATE_STRING(Events.Inform)
+              type: "'container'"
+              components:
+                - type: "'parameter'"
+                - chart: "'online'"
+                  type: "'overview-dot'"
+                - type: "'summon-button'"
+                  parameters:
+                    - InternetGatewayDevice.DeviceInfo.HardwareVersion
+                    - InternetGatewayDevice.DeviceInfo.SoftwareVersion
+            - label: "'WAN IP Address'"
+              parameter: VirtualParameters.pppIP
+              type: "'container'"
+              components:
+                - type: "'parameter'"
+              element:
+                tag: "'a'"
+                attributes:
+                  href: '"http://" || ENCODEURICOMPONENT(VirtualParameters.pppIP)'
+                  target: "'_blank'"
+            - label: "'Device Uptime'"
+              parameter: VirtualParameters.getdeviceuptime
+            - label: "'PPPoE Uptime'"
+              parameter: VirtualParameters.getpppuptime
+    - element: "'div.summary-section'"
+      type: "'container'"
+      components:
+        - element: "'h4'"
           type: "'container'"
           components:
-            - type: "'parameter'"
-          element:
-            tag: "'a'"
-            attributes:
-              href: '"http://" || ENCODEURICOMPONENT(VirtualParameters.pppIP)'
-              target: "'_blank'"
+            - "'🛠️ Device Information'"
+        - type: "'parameter-list'"
+          parameters:
+            - label: "'Serial Number'"
+              parameter: DeviceID.SerialNumber
+            - label: "'Manufacturer'"
+              parameter: DeviceID.Manufacturer
+            - label: "'Product Class'"
+              parameter: DeviceID.ProductClass
+            - label: "'Hardware Version'"
+              parameter: InternetGatewayDevice.DeviceInfo.HardwareVersion
+            - label: "'Software Version'"
+              parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
+            - label: "'MAC Address'"
+              parameter: VirtualParameters.MacAddress
     - element: "'div'"
       type: "'container'"
       components:
@@ -564,7 +579,7 @@
             - label: "'Status'"
               parameter: ConnectionStatus
     - filter: (InternetGatewayDevice.WANDevice.1.X_ZTE-COM_WANPONInterfaceConfig.RXPower
-        IS NOT NULL)
+        IS NOT NULL) OR DeviceID.Manufacturer = "ZTE"
       type: "'container'"
       components:
         - element: "'div'"
@@ -656,7 +671,7 @@
             - label: "'Status'"
               parameter: ConnectionStatus
     - filter: (InternetGatewayDevice.WANDevice.1.X_ZTE-COM_WANPONInterfaceConfig.RXPower
-        IS NOT NULL)
+        IS NOT NULL) OR DeviceID.Manufacturer = "ZTE"
       type: "'container'"
       components:
         - label: "'WAN 1 IPoE'"
@@ -1058,7 +1073,7 @@
               parameter: AutoChannelEnable
             - label: "'Power'"
               parameter: X_CT-COM_PowerValue
-    - filter: DeviceID.Manufacturer	 = "ZTE" OR
+    - filter: DeviceID.Manufacturer = "ZTE" OR
         InternetGatewayDevice.X_CMCC_UserInfo.ServiceName NOT LIKE "XCMCC" OR
         InternetGatewayDevice.X_CT-COM_UserInfo.ServiceName NOT LIKE "CTCOM" OR
         InternetGatewayDevice.X_CU_UserInfo.ServiceName NOT LIKE "XCU"
@@ -1344,7 +1359,7 @@
               parameter: InternetGatewayDevice.X_CU_Function.ServiceMgt.LocalUserName
             - label: "'Password'"
               parameter: InternetGatewayDevice.X_CU_Function.ServiceMgt.LocalUserPassword
-    - filter: DeviceID.Manufacturer	= "ZIONCOM"
+    - filter: DeviceID.Manufacturer = "ZIONCOM"
       type: "'container'"
       components:
         - type: "'parameter-list'"
@@ -1366,7 +1381,7 @@
               parameter: InternetGatewayDevice.X_CU_Function.Web.UserName
             - label: "'Password'"
               parameter: InternetGatewayDevice.X_CU_Function.Web.UserPassword
-    - filter: InternetGatewayDevice.X_CMCC_UserInfo.ServiceName	= "XCMCC"
+    - filter: InternetGatewayDevice.X_CMCC_UserInfo.ServiceName = "XCMCC"
       type: "'container'"
       components:
         - type: "'parameter-list'"
@@ -1379,7 +1394,7 @@
               parameter: InternetGatewayDevice.DeviceInfo.X_CMCC_ServiceManage.FtpUserName
             - label: "'Password'"
               parameter: InternetGatewayDevice.DeviceInfo.X_CMCC_ServiceManage.FtpPassword
-    - filter: DeviceID.Manufacturer	= "YOTC" OR DeviceID.Manufacturer	= "BDCM" OR
+    - filter: DeviceID.Manufacturer = "YOTC" OR DeviceID.Manufacturer = "BDCM" OR
         DeviceID.Manufacturer = "AISF" OR DeviceID.Manufacturer = "CIOT"
       type: "'container'"
       components:
@@ -1393,7 +1408,7 @@
               parameter: InternetGatewayDevice.DeviceInfo.X_CT-COM_ServiceManage.FtpUserName
             - label: "'Password'"
               parameter: InternetGatewayDevice.DeviceInfo.X_CT-COM_ServiceManage.FtpPassword
-    - filter: DeviceID.Manufacturer		= "Huawei Technologies Co., Ltd"
+    - filter: DeviceID.Manufacturer = "Huawei Technologies Co., Ltd"
       type: "'container'"
       components:
         - type: "'parameter-list'"

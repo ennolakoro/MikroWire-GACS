@@ -4,51 +4,143 @@
 
 (function() {
   const css = `
-/* MikroWire Modern UI - GenieACS Tab System */
+/* MikroWire Cyber-Modern UI - GenieACS */
 :root {
-  --primary-color: #00ff88;
+  --primary: #00ff88;
+  --secondary: #00d4ff;
+  --accent: #ff00ff;
   --bg-dark: #0d1117;
   --card-bg: #161b22;
+  --header-bg: #1c2128;
   --border-color: #30363d;
   --text-main: #c9d1d9;
+  --text-dim: #8b949e;
+  --glow: 0 0 12px rgba(0, 255, 136, 0.4);
+}
+
+body {
+  background-color: var(--bg-dark) !important;
+  color: var(--text-main) !important;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif !important;
 }
 
 .mw-tabs-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin: 20px 0;
+  gap: 10px;
+  margin: 25px 0;
   border-bottom: 2px solid var(--border-color);
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 .mw-tab-btn {
   background: #21262d;
   border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 8px 20px;
+  color: var(--text-dim);
+  padding: 12px 28px;
   cursor: pointer;
-  border-radius: 6px 6px 0 0;
+  border-radius: 8px 8px 0 0;
   font-weight: 600;
-  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.mw-tab-btn:hover {
+  color: var(--text-main);
+  background: #30363d;
+  border-color: var(--text-dim);
 }
 
 .mw-tab-btn.active {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #000;
-  border-color: var(--primary-color);
+  border-color: transparent;
+  box-shadow: var(--glow);
+  transform: translateY(-2px);
 }
 
 .mw-hidden-section-header { display: none !important; }
 
-.mw-tab-content { display: none; animation: mwFadeIn 0.3s ease; }
+.mw-tab-content { display: none; animation: mwSlideUp 0.4s ease-out; }
 .mw-tab-content.active { display: block; }
 
-@keyframes mwFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mwSlideUp { 
+  from { opacity: 0; transform: translateY(20px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
 
-table { width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid var(--border-color); }
-th { background: #21262d; color: var(--primary-color); padding: 10px; text-align: left; }
-td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); }
+/* Styled Sections (Cards) */
+.summary-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+.summary-section:hover {
+  border-color: var(--secondary);
+}
+
+.summary-section h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--primary);
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Improved Tables & Data */
+table { 
+  width: 100%; 
+  border-collapse: separate; 
+  border-spacing: 0;
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+th { 
+  background: var(--header-bg); 
+  color: var(--secondary); 
+  padding: 12px 16px; 
+  text-align: left; 
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+td { 
+  padding: 10px 16px; 
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+/* Parameter Value Styling */
+.parameter-value {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--secondary);
+}
+
+.mw-status-online { color: var(--primary); text-shadow: var(--glow); }
+.mw-status-offline { color: #ff4444; }
+
+/* Summon Button Customization */
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+}
+
+.mw-tab-btn, button { outline: none !important; }
   `;
 
   function injectCSS() {
