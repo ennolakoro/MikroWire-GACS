@@ -1,6 +1,10 @@
 - label: "'Summary'"
   route: "'summary'"
   components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'Summary'"
     - type: "'tags'"
     - type: "'ping'"
     - element: "'div.summary-section'"
