@@ -156,8 +156,8 @@ EOF
     sudo systemctl enable --now genieacs-{cwmp,nbi,fs,ui}
 fi
 
-# --- NOC INTELLIGENCE UI INJECTION (v14.0 QUANTUM-SYNC) ---
-type_out "${CYAN}>>> Melakukan Ultra-Stable Transformation UI v14.0..."
+# --- NOC INTELLIGENCE UI INJECTION (v15.0 NOC-ELITE) ---
+type_out "${CYAN}>>> Melakukan Ultra-Stable Transformation UI v15.0..."
 GENIE_PATH=$(npm list -g genieacs --parseable 2>/dev/null | head -n 1)
 if [ -z "$GENIE_PATH" ]; then GENIE_PATH="/usr/lib/node_modules/genieacs"; fi
 SYSTEM_PUBLIC="$GENIE_PATH/public"
@@ -166,13 +166,13 @@ REPO_APP_JS="./genieacs/public/app.js"
 if [ -f "$REPO_APP_JS" ]; then
     for f in "$SYSTEM_PUBLIC"/app*.js; do
         if [ -f "$f" ]; then
-            echo "Applying v14.0 Quantum-Sync: $f"
+            echo "Applying v15.0 NOC-Elite: $f"
             sudo sed -i '/\/\*\* NOC Intelligence/d' "$f"
             sudo tee -a "$f" < "$REPO_APP_JS" > /dev/null
         fi
     done
     sudo systemctl restart genieacs-ui
-    echo -e "${GREEN}✔ UI v14.0 Final Enterprise Applied & Service Restarted.${NC}"
+    echo -e "${GREEN}✔ UI v15.0 Final NOC-Elite Applied & Service Restarted.${NC}"
 else
     echo -e "${RED}✘ Error: Repo file $REPO_APP_JS tidak ditemukan.${NC}"
 fi
