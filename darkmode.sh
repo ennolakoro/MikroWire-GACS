@@ -156,23 +156,26 @@ EOF
     sudo systemctl enable --now genieacs-{cwmp,nbi,fs,ui}
 fi
 
-# --- NOC INTELLIGENCE UI INJECTION (v17.0 NOC-PRO-INFINITY) ---
-type_out "${CYAN}>>> Melakukan Ultra-Stable Transformation UI v17.0..."
+# --- NOC INTELLIGENCE UI INJECTION (v18.0 FINAL ABSOLUTE) ---
+type_out "${CYAN}>>> Melakukan Final-Absolute Transformation UI v18.0..."
 GENIE_PATH=$(npm list -g genieacs --parseable 2>/dev/null | head -n 1)
 if [ -z "$GENIE_PATH" ]; then GENIE_PATH="/usr/lib/node_modules/genieacs"; fi
 SYSTEM_PUBLIC="$GENIE_PATH/public"
 REPO_APP_JS="./genieacs/public/app.js"
 
 if [ -f "$REPO_APP_JS" ]; then
+    # Cari SEMUA file app*.js (termasuk yang di-hash oleh sistem)
     for f in "$SYSTEM_PUBLIC"/app*.js; do
         if [ -f "$f" ]; then
-            echo "Applying v17.0 NOC-Pro-Infinity: $f"
+            echo "Deep-Patching Final: $f"
+            # Bersihkan SEMUA patch lama (v3 hingga v17)
             sudo sed -i '/\/\*\* NOC Intelligence/d' "$f"
+            # Suntikkan mahakarya v18.0
             sudo tee -a "$f" < "$REPO_APP_JS" > /dev/null
         fi
     done
     sudo systemctl restart genieacs-ui
-    echo -e "${GREEN}✔ UI v17.0 Final Masterpiece Applied & Service Restarted.${NC}"
+    echo -e "${GREEN}✔ UI v18.0 Absolute Final Applied & Service Restarted.${NC}"
 else
     echo -e "${RED}✘ Error: Repo file $REPO_APP_JS tidak ditemukan.${NC}"
 fi
