@@ -1,160 +1,159 @@
 
-/** NOC Intelligence v8.0 - THE V-DOM INTERCEPTOR (Final Stable) **/
+/** NOC Intelligence v9.0 - THE V-DOM MASTER (Ultra-Stable) **/
 (function() {
   const css = `
     :root {
       --mw-primary: #00ff88; --mw-secondary: #00d4ff; --mw-bg: #0a0c10;
       --mw-card: #161b22; --mw-border: #30363d; --mw-text: #c9d1d9;
-      --mw-glow: 0 0 15px rgba(0, 255, 136, 0.4);
     }
 
-    /* 1. GLOBAL UI RESET */
-    html, body, #page, .container-fluid, .device-page { 
-      background-color: var(--mw-bg) !important; color: var(--mw-text) !important; 
-      font-family: 'Inter', sans-serif !important; 
-    }
-
-    /* 2. FLOATING TAB BAR (Anti-Wipe) */
-    #mw-persistent-tabs {
-      display: flex; gap: 4px; margin-bottom: 20px; padding: 10px;
-      background: #010409; border-bottom: 2px solid var(--mw-border);
-      position: sticky; top: 0; z-index: 999999; backdrop-filter: blur(10px);
-    }
-    .mw-tab-btn {
-      background: transparent; border: none; color: #8b949e; padding: 12px 25px;
-      cursor: pointer; border-radius: 8px 8px 0 0; font-weight: 800; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s;
-    }
-    .mw-tab-btn.active {
-      background-color: var(--mw-primary) !important; color: #000 !important;
-      border-bottom: 3px solid var(--mw-secondary) !important;
-      box-shadow: var(--mw-glow);
-    }
-
-    /* 3. V-DOM COMPATIBLE VISIBILITY */
-    .mw-vdom-hidden { display: none !important; }
+    /* 1. GLOBAL & PERSISTENT UI */
+    html, body { background-color: var(--mw-bg) !important; color: var(--mw-text) !important; font-family: 'Inter', sans-serif !important; }
     
-    /* 4. GRID LAYOUT FOR SUMMARY */
-    .mw-executive-grid { 
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-        gap: 10px; margin-bottom: 20px; 
+    #mw-hud-container {
+      position: sticky; top: 0; z-index: 999999; background: #0a0c10;
+      padding: 10px 20px; border-bottom: 1px solid var(--mw-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
-    .mw-stat-card { 
-        background: var(--mw-card); padding: 12px; border-radius: 8px; 
-        border: 1px solid var(--mw-border); border-left: 4px solid var(--mw-primary); 
+
+    .mw-tabs { display: flex; gap: 5px; margin-top: 10px; }
+    .mw-tab-btn {
+      background: #1c2128; border: 1px solid var(--mw-border); color: #8b949e;
+      padding: 10px 20px; cursor: pointer; border-radius: 6px 6px 0 0;
+      font-weight: 800; font-size: 11px; text-transform: uppercase; transition: 0.2s;
     }
+    .mw-tab-btn.active { background: var(--mw-primary); color: #000; border-color: transparent; }
+
+    .mw-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+    .mw-stat-item { background: var(--mw-card); padding: 10px; border-radius: 8px; border-left: 3px solid var(--mw-primary); }
     .mw-stat-label { font-size: 9px; color: var(--mw-secondary); text-transform: uppercase; font-weight: bold; }
-    .mw-stat-value { font-size: 12px; font-family: monospace; color: #fff; margin-top: 4px; }
+    .mw-stat-value { font-size: 12px; font-family: monospace; color: #fff; margin-top: 3px; }
 
-    /* 5. TABLE & TEXT SANITIZATION */
-    table { width: 100% !important; border-radius: 10px; overflow: hidden; border: 1px solid var(--mw-border) !important; background: var(--mw-card); }
-    th { background: #0d1117 !important; color: var(--mw-primary) !important; padding: 12px !important; font-size: 10px; text-transform: uppercase; }
-    td { padding: 10px 14px !important; border-bottom: 1px solid var(--mw-border) !important; font-size: 12.5px; }
-    tr:hover td { background: rgba(0, 255, 136, 0.05); }
+    /* 2. LOGIC FILTERING (Mithril Compatible) */
+    /* Sembunyikan elemen asli yang sudah dipindah ke HUD */
+    .mw-origin-hidden { display: none !important; }
+    
+    /* Sembunyikan trash text */
+    .mw-trash { display: none !important; }
 
-    h3.Summon, .summon-button, .Parameter_Setting, .all-parameters, .device-faults { display: none !important; }
+    /* Tab Filtering System */
+    body[data-mw-tab="DASHBOARD"] .device-page > *:not([data-mw-group="DASHBOARD"]),
+    body[data-mw-tab="NETWORK"] .device-page > *:not([data-mw-group="NETWORK"]),
+    body[data-mw-tab="WIRELESS"] .device-page > *:not([data-mw-group="WIRELESS"]),
+    body[data-mw-tab="SYSTEM"] .device-page > *:not([data-mw-group="SYSTEM"]) {
+        display: none !important;
+    }
+
+    /* 3. TABLE STYLING */
+    table { width: 100% !important; border-radius: 12px; overflow: hidden; border: 1px solid var(--mw-border) !important; background: var(--mw-card); margin: 15px 0 !important; }
+    th { background: #0d1117 !important; color: var(--mw-primary) !important; padding: 12px !important; text-transform: uppercase; font-size: 10px; }
+    td { padding: 12px 15px !important; border-bottom: 1px solid var(--mw-border) !important; font-size: 13px; }
+    tr:hover td { background: rgba(0, 255, 136, 0.03); }
+
+    h3.Summon, .summon-button, .Parameter_Setting, .all-parameters { display: none !important; }
   `;
 
-  if (!document.getElementById('mw-vdom-styles')) {
-    const s = document.createElement('style'); s.id='mw-vdom-styles'; s.innerHTML = css; document.head.appendChild(s);
+  if (!document.getElementById('mw-v9-styles')) {
+    const s = document.createElement('style'); s.id='mw-v9-styles'; s.innerHTML = css; document.head.appendChild(s);
   }
 
   let activeTab = 'DASHBOARD';
 
-  function orchestrate() {
-    if (!location.hash.includes('/devices/')) return;
-    
-    const main = document.querySelector('.container-fluid') || document.querySelector('.device-page');
-    if (!main) return;
+  function scanAndTag() {
+    if (!location.hash.includes('/devices/')) {
+        const hud = document.getElementById('mw-hud-container');
+        if (hud) hud.remove();
+        return;
+    }
 
-    // A. Ensure Persistent Tab Bar
-    let tabBar = document.getElementById('mw-persistent-tabs');
-    if (!tabBar) {
-      tabBar = document.createElement('div');
-      tabBar.id = 'mw-persistent-tabs';
-      ['DASHBOARD', 'NETWORK', 'WIRELESS', 'SYSTEM'].forEach(name => {
+    const container = document.querySelector('.device-page') || document.querySelector('.container-fluid');
+    if (!container) return;
+
+    // 1. Create HUD if missing
+    let hud = document.getElementById('mw-hud-container');
+    if (!hud) {
+      hud = document.createElement('div');
+      hud.id = 'mw-hud-container';
+      hud.innerHTML = `<div class="mw-stats-grid" id="mw-stats"></div><div class="mw-tabs" id="mw-tab-bar"></div>`;
+      document.body.prepend(hud);
+      
+      const tabBar = hud.querySelector('#mw-tab-bar');
+      ['DASHBOARD', 'NETWORK', 'WIRELESS', 'SYSTEM'].forEach(t => {
         const btn = document.createElement('button');
-        btn.className = 'mw-tab-btn' + (name === activeTab ? ' active' : '');
-        btn.innerText = name;
+        btn.className = 'mw-tab-btn' + (t === activeTab ? ' active' : '');
+        btn.innerText = t;
         btn.onclick = () => {
-          activeTab = name;
+          activeTab = t;
           document.querySelectorAll('.mw-tab-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          orchestrate(); // Re-sync visibility immediately
+          document.body.setAttribute('data-mw-tab', t);
         };
         tabBar.appendChild(btn);
       });
-      main.prepend(tabBar);
+      document.body.setAttribute('data-mw-tab', activeTab);
     }
 
-    // B. Build & Sync Executive Grid (Only if on Dashboard tab)
-    let grid = document.getElementById('mw-exec-grid');
-    if (!grid) {
-        grid = document.createElement('div');
-        grid.id = 'mw-exec-grid';
-        grid.className = 'mw-executive-grid';
-        main.insertBefore(grid, tabBar.nextSibling);
-    }
-    grid.style.display = (activeTab === 'DASHBOARD') ? 'grid' : 'none';
+    // 2. Tagging Engine (Non-Destructive)
+    let currentGroup = 'DASHBOARD';
+    const statsGrid = hud.querySelector('#mw-stats');
 
-    // C. Data Extraction & Real-time Sync (Tanpa merusak DOM)
-    const headers = Array.from(main.querySelectorAll('h3'));
-    
-    // 1. Process Summary Info
-    main.querySelectorAll('div, span').forEach(el => {
-        if (el.id === 'mw-exec-grid' || el.id === 'mw-persistent-tabs') return;
-        
-        const text = el.innerText.trim();
-        if (text.includes(':') && el.childNodes.length < 4) {
-            const parts = text.split(':');
-            if (parts.length === 2) {
-                // Sembunyikan elemen asli tapi jangan hapus
-                el.classList.add('mw-vdom-hidden');
-                
-                // Cari atau buat stat card di grid
-                const cardId = 'mw-card-' + parts[0].trim().replace(/\s+/g, '-');
-                let card = document.getElementById(cardId);
-                if (!card) {
-                    card = document.createElement('div');
-                    card.id = cardId;
-                    card.className = 'mw-stat-card';
-                    grid.appendChild(card);
-                }
-                card.innerHTML = `<div class="mw-stat-label">${parts[0].trim()}</div><div class="mw-stat-value">${parts[1].trim()}</div>`;
-            }
-        }
-        
-        // Sanitasi teks sampah "FaultsChannel..."
-        if (text.includes('FaultsChannel') || text === 'Parameter Setting' || text === 'Summary' || text === 'All parameters') {
-            el.classList.add('mw-vdom-hidden');
-        }
-    });
-
-    // 2. Logic Tab Switching (Non-Destructive)
     const groups = {
       'NETWORK': ['WAN', 'IP', 'PPP', 'VLAN'],
       'WIRELESS': ['WIFI', 'SSID', 'WLAN', 'CONNECTED'],
       'SYSTEM': []
     };
 
-    headers.forEach(h => {
-      const headerText = h.innerText.toUpperCase();
-      let group = 'SYSTEM';
-      for(let key in groups) { if(groups[key].some(k => headerText.includes(k))) { group = key; break; } }
-      
-      const shouldShow = (activeTab === group);
-      
-      // Toggle visibility pada Header dan Konten di bawahnya
-      if (shouldShow) h.classList.remove('mw-vdom-hidden'); else h.classList.add('mw-vdom-hidden');
-      
-      let next = h.nextElementSibling;
-      while(next && next.tagName !== 'H3') {
-        if (shouldShow) next.classList.remove('mw-vdom-hidden'); else next.classList.add('mw-vdom-hidden');
-        next = next.nextElementSibling;
+    const trash = ["FaultsChannel", "Parameter Setting", "Summary", "All parameters", "Faults"];
+
+    Array.from(container.childNodes).forEach(el => {
+      if (el.nodeType === 3) { // Text Node
+        if (el.textContent.trim() === "") return;
+        el.textContent = ""; // Hide raw floating text
+        return;
       }
+      
+      if (el.nodeType !== 1) return; // Skip non-elements
+      if (el.id === 'mw-hud-container') return;
+
+      const text = el.innerText || "";
+      
+      // Handle Summary Extraction to HUD
+      if (text.includes(':') && el.tagName !== 'TABLE' && el.childNodes.length < 5) {
+        const parts = text.split(':');
+        const id = 'stat-' + parts[0].trim().replace(/\s+/g, '-');
+        let statItem = document.getElementById(id);
+        if (!statItem) {
+          statItem = document.createElement('div');
+          statItem.id = id;
+          statItem.className = 'mw-stat-item';
+          statsGrid.appendChild(statItem);
+        }
+        statItem.innerHTML = `<div class="mw-stat-label">${parts[0].trim()}</div><div class="mw-stat-value">${parts[1].trim()}</div>`;
+        el.classList.add('mw-origin-hidden');
+        return;
+      }
+
+      // Handle Trash
+      if (trash.some(t => text.includes(t))) {
+        el.classList.add('mw-trash');
+        return;
+      }
+
+      // Switch Group on H3
+      if (el.tagName === 'H3') {
+        currentGroup = 'SYSTEM';
+        const hText = text.toUpperCase();
+        for (let g in groups) {
+          if (groups[g].some(k => hText.includes(k))) { currentGroup = g; break; }
+        }
+        el.style.display = 'none'; // Hide original H3, we use tabs
+      }
+
+      // Apply Group Tag
+      el.setAttribute('data-mw-group', currentGroup);
     });
   }
 
-  // Interval pasif: Hanya memastikan status sinkron, bukan merubah struktur
-  setInterval(orchestrate, 800);
+  // Use passive monitoring to avoid Mithril conflicts
+  setInterval(scanAndTag, 1000);
 })();
