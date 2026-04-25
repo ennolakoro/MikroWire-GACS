@@ -33,7 +33,7 @@ apt install git curl -y
 
 1. Clone repository ini
 ```
-git clone https://github.com/alijayanet/telebot-acs
+git clone https://github.com/mikrowire/telebot-acs
 ```
 3. Masuk ke direktori project
    ```
@@ -107,7 +107,7 @@ https://wa.me/6281947215703
 
 atau link group telegram
 
-https://t.me/alijayaNetAcs
+https://t.me/mikrowireAcs
 
 ## 📄 Lisensi
 

@@ -18,7 +18,7 @@ bot.onText(/\/start/, (msg) => {
     }
     
     bot.sendMessage(chatId, 
-        '🏢 *ALIJAYA\\-NET Monitoring Bot*\n\n' +
+        '🏢 *MIKROWIRE\\-NET Monitoring Bot*\n\n' +
         'Perintah yang tersedia:\n' +
         '/devices \\- Lihat daftar device\n' +
         '/status \\{SN\\} \\- Cek status device\n' +

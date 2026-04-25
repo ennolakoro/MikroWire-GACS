@@ -3,7 +3,7 @@ module.exports = {
     servers: {
         // Server 1
         server1: {
-            name: "ALIJAYA-NET",
+            name: "MIKROWIRE-NET",
             botToken: "1938127147:AAFMcxxxxxxxx",
             adminIds: ["56785xxxxxx"],
             customers: {},

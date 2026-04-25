@@ -128,7 +128,7 @@ class GenieACSBot {
             
             if (isAdmin) {
                 const helpMessage = 
-                    `🏢 *ALIJAYA GENIEACS BOT*\n\n` +
+                    `🏢 *MIKROWIRE GENIEACS BOT*\n\n` +
                     `🏢 *${this.escapeMarkdown(this.name)} Admin Panel*\n\n` +
                     '📱 *Perintah Admin:*\n' +
                     '/devices \\- Lihat semua device\n' +

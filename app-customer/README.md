@@ -4,8 +4,8 @@
 
 Portal pelanggan modern dan responsif untuk ISP yang menggunakan **GenieACS**. Memberikan pengalaman manajemen perangkat mandiri (*self-service*) bagi pelanggan Anda tanpa perlu intervensi admin.
 
-[![GitHub license](https://img.shields.io/github/license/alijayanet/app-customer)](https://github.com/alijayanet/app-customer/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/alijayanet/app-customer)](https://github.com/alijayanet/app-customer/stargazers)
+[![GitHub license](https://img.shields.io/github/license/mikrowire/app-customer)](https://github.com/mikrowire/app-customer/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/mikrowire/app-customer)](https://github.com/mikrowire/app-customer/stargazers)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
 
 ---
@@ -50,7 +50,7 @@ Pastikan Anda memiliki akses `root` atau `sudo`.
 
 ```bash
 # Clone repository
-git clone https://github.com/alijayanet/app-customer.git
+git clone https://github.com/mikrowire/app-customer.git
 cd app-customer
 
 # Beri izin eksekusi pada script installer
@@ -81,7 +81,7 @@ Jika GenieACS berada di server yang berbeda, Anda dapat mengedit file `settings.
   "genieacs_url": "http://192.168.1.100:7557",
   "genieacs_username": "admin",
   "genieacs_password": "admin-password",
-  "company_header": "Alijaya Net",
+  "company_header": "MikroWire Digital Network",
   "footer_info": "Internet Tanpa Batas",
   "server_port": 3001,
   "server_host": "localhost"
@@ -130,4 +130,4 @@ Didistribusikan di bawah Lisensi **ISC**. Lihat `LICENSE` untuk detailnya.
 
 ---
 🚀 **Dibuat untuk memudahkan manajemen ISP modern.**
-Managed by [Ali Jaya Net](https://github.com/alijayanet)
+Managed by [MikroWire Digital Network](https://github.com/mikrowire)
